@@ -10,12 +10,22 @@ import objetos.ListasPadrao;
 import objetos.NohOuRamo;
 import objetos.Request;
 import objetos.Response;
+import processo.Entropia;
 import processo.Processo;
 
 public class Testes {
 
 	public static Processo p = new Processo();
 
+	public void Teste_Entropia() {
+		ListasPadrao l = new ListasPadrao();
+		l.setClassePadrao();
+		l.setListaDadosPadrao();
+		l.setPropsPadrao();
+		Entropia e = new Entropia(l.getProps(), l.getListaDados());
+		e.main();
+	}
+	
 	public void Todos_Testes() {
 		System.out.println();
 		System.err.println("\t___15 testes___");

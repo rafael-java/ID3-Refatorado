@@ -160,23 +160,19 @@ public class Processo {
 
 	private String selecionaUmaPropriedadeP(Map<String, Integer> props) {
 		// EH AQUI QUE ENTRA O ENTROPIA!!!!
-
-		String value = new String();
-		for (String key : props.keySet()) {
-			value = key;
-			break;
-		}
-		return value;
+		Entropia e = new Entropia(props, null);
+		
+		return null;
 	}
 
 	private List<Map<Integer, String>> construirParticaoV(Integer prop_index, String valor,
 			List<Map<Integer, String>> listaDados) {
 		
-		Map<Integer, String> Coluna = listaDados.get(prop_index);
+		Map<Integer, String> coluna = listaDados.get(prop_index);
 		List<Integer> indices = new ArrayList<Integer>();
 		
-		for (Integer indice : Coluna.keySet()) {
-			String value = Coluna.get(indice);
+		for (Integer indice : coluna.keySet()) {
+			String value = coluna.get(indice);
 			if (value == valor) {
 				indices.add(indice);
 			}
@@ -184,10 +180,10 @@ public class Processo {
 
 		List<Map<Integer, String>> particaoVListaDadosCopia = new ArrayList<Map<Integer, String>>();
 
-		for (Map<Integer, String> coluna : listaDados) {
+		for (Map<Integer, String> coluna1 : listaDados) {
 			Map<Integer, String> novaColuna = new HashMap<Integer, String>();
 			for (Integer indice : indices) {
-				novaColuna.put(indice, coluna.get(indice));
+				novaColuna.put(indice, coluna1.get(indice));
 			}
 			particaoVListaDadosCopia.add(novaColuna);
 		}
