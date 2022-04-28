@@ -44,6 +44,23 @@ public class Entropia {
 		return propsInvertida;
 	}
 
+	private Double entropiaEsoma(Map<String, Double> PValores) {
+		Double soma = 0D;
+
+		Map<String, Double> soPraEuSaber = new HashMap<String, Double>();
+		Set<String> valores = PValores.keySet();
+		for (String valor : valores) {
+			if (!valor.equals(TOTAL) && !valor.equals(FREQ_DO_TOTAL)) {
+				Double P = PValores.get(valor);
+				Double entropia = -1 * P * log2(P);
+				soPraEuSaber.put(valor, entropia);
+				soma = soma + entropia;
+			}
+		}
+
+		return soma;
+	}
+
 	private static Double log2(Double f) {
 		Double log2 = 0D;
 		if (f != 0) {
@@ -96,7 +113,7 @@ public class Entropia {
 
 				List<Map<String, Double>> pValoresProp = pValoresProp(countProps);
 
-				Map<String, Double> entropiaValoresProps = entropiaValoresProps(pValoresProp);
+				Map<String, Double> entropiaValoresProps = entropiaESomaValoresProps(pValoresProp);
 
 				List<Double> valoresPropsPonderado = valoresPropsPonderado(entropiaValoresProps);
 
@@ -149,23 +166,6 @@ public class Entropia {
 		}
 
 		return countValores;
-	}
-
-	private Double entropiaEsoma(Map<String, Double> PValores) {
-		Double soma = 0D;
-
-		Map<String, Double> soPraEuSaber = new HashMap<String, Double>();
-		Set<String> valores = PValores.keySet();
-		for (String valor : valores) {
-			if (!valor.equals(TOTAL) && !valor.equals(FREQ_DO_TOTAL)) {
-				Double P = PValores.get(valor);
-				Double entropia = -1 * P * log2(P);
-				soPraEuSaber.put(valor, entropia);
-				soma = soma + entropia;
-			}
-		}
-
-		return soma;
 	}
 
 	private Map<String, Double> P_TabelaCE(Map<String, Double> countValores) {
@@ -363,7 +363,7 @@ public class Entropia {
 		return todasFreqs;
 	}
 
-	private Map<String, Double> entropiaValoresProps(List<Map<String, Double>> pProps) throws IllegalArgumentException {
+	private Map<String, Double> entropiaESomaValoresProps(List<Map<String, Double>> pProps) throws IllegalArgumentException {
 
 		Map<String, Double> entropias = new HashMap<String, Double>();
 
