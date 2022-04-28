@@ -16,8 +16,8 @@ public class Processo {
 
 	public NohOuRamo induzirArvore() {
 		ListasPadrao listas = new ListasPadrao();
-		listas.setListaDadosTeste();
-//		listas.setListaDadosPadrao();
+//		listas.setListaDadosTeste();
+		listas.setListaDadosPadrao();
 		listas.setPropsPadrao();
 		listas.setClassePadrao();
 		id = 0;
@@ -67,7 +67,7 @@ public class Processo {
 			nohRetorno = norComDisjuncaoDeTodosOsValoresDaClasseDa(listaDados, classe);
 			return nohRetorno;
 		} else {
-			String prop = selecionaUmaPropriedadeP(props);
+			String prop = selecionaUmaPropriedadeP(props, listaDados);
 			Integer prop_index = props.get(prop);
 
 			nohRetorno.setNomePropNoh(prop);
@@ -158,11 +158,13 @@ public class Processo {
 		return novoNoh;
 	}
 
-	private String selecionaUmaPropriedadeP(Map<String, Integer> props) {
-		// EH AQUI QUE ENTRA O ENTROPIA!!!!
-		Entropia e = new Entropia(props, null);
+	private String selecionaUmaPropriedadeP(Map<String, Integer> props, List<Map<Integer, String>> listaDados) {
+		Entropia e = new Entropia(props, listaDados);
 		
-		return null;
+		String prop = e.elegeOMaior();
+	
+		System.out.println(prop);
+		return prop;
 	}
 
 	private List<Map<Integer, String>> construirParticaoV(Integer prop_index, String valor,

@@ -5,7 +5,7 @@ public class Main {
 	public static void main(String[] args) {
 		Testes t = new Testes();	
 
-		t.Teste_Entropia();
+		t.teste1();
 	}
 }
 
@@ -21,3 +21,4 @@ public class Main {
 //- (TALVEZ) testar bem muito 
 
 // - (JULIO) o front (QUARTA 20:50, QUINTA 18:00)
+// props deveria considerar a propriedade, nao tirar ela!
