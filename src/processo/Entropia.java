@@ -16,11 +16,11 @@ public class Entropia {
 	private List<Map<Integer, String>> listaDados;
 	private Map<Integer, String> propsInvertida;
 	private Map<String, Double> dadosCE;
-//	private Double tamanhoCE;
-//	private final static String ENTROPIA_DA_TABELA = "Entropia da Tabela";
-//	private final static String TAMANHO_DA_TABELA = "Tamanho da Tabela";
-//	private final static String TOTAL = "Total";
-//	private final static String FREQ_DO_TOTAL = "FreqDoTotal";
+
+	private final static String ENTROPIA_DA_TABELA = "Entropia da Tabela";
+	private final static String TAMANHO_DA_TABELA = "Tamanho da Tabela";
+	private final static String TOTAL = "Total";
+	private final static String FREQ_DO_TOTAL = "FreqDoTotal";
 
 	public Entropia(Map<String, Integer> propsNaoInvertida, List<Map<Integer, String>> listaDados) {
 		this.listaDados = listaDados;
@@ -116,10 +116,10 @@ public class Entropia {
 		Map<String, Double> dadosCE = new HashMap<String, Double>();
 
 		Map<String, Double> countValores = countValores();
-		dadosCE.put("Tamanho da Tabela", countValores.get("Tamanho da Tabela"));
+		dadosCE.put(TAMANHO_DA_TABELA, countValores.get(TAMANHO_DA_TABELA));
 
 		Map<String, Double> PValores = P_TabelaCE(countValores);
-		dadosCE.put("Entropia da Tabela", entropiaEsoma(PValores));
+		dadosCE.put(ENTROPIA_DA_TABELA, entropiaEsoma(PValores));
 
 		return dadosCE;
 	}
@@ -136,7 +136,7 @@ public class Entropia {
 
 		Map<String, Double> countValores = new HashMap<String, Double>();
 		for (String valorUnico : valoresUnicos) {
-			countValores.put("Tamanho da Tabela", Double.valueOf(valores.size()));
+			countValores.put(TAMANHO_DA_TABELA, Double.valueOf(valores.size()));
 			countValores.put(valorUnico, 0D);
 		}
 
@@ -157,7 +157,7 @@ public class Entropia {
 		Map<String, Double> soPraEuSaber = new HashMap<String, Double>();
 		Set<String> valores = PValores.keySet();
 		for (String valor : valores) {
-			if (!valor.equals("total") && !valor.equals("freqDoTotal")) {
+			if (!valor.equals(TOTAL) && !valor.equals(FREQ_DO_TOTAL)) {
 				Double P = PValores.get(valor);
 				Double entropia = -1 * P * log2(P);
 				soPraEuSaber.put(valor, entropia);
@@ -172,9 +172,9 @@ public class Entropia {
 
 		Map<String, Double> PValores = new HashMap<String, Double>();
 
-		Double tamanhoTabela = countValores.get("Tamanho da Tabela");
+		Double tamanhoTabela = countValores.get(TAMANHO_DA_TABELA);
 		Set<String> valores = countValores.keySet();
-		valores.remove("Tamanho da Tabela");
+		valores.remove(TAMANHO_DA_TABELA);
 		for (String valor : valores) {
 			Double count = countValores.get(valor);
 			PValores.put(valor, count / tamanhoTabela);
@@ -196,7 +196,7 @@ public class Entropia {
 
 		Map<String, Double> countValores = new HashMap<String, Double>();
 		for (String valorUnico : valoresUnicos) {
-			countValores.put("Tamanho da Tabela", Double.valueOf(valores.size()));
+			countValores.put(TAMANHO_DA_TABELA, Double.valueOf(valores.size()));
 			countValores.put(valorUnico, 0D);
 		}
 
@@ -246,7 +246,7 @@ public class Entropia {
 		Integer count = 0;
 		Map<String, Double> pValoresProp = new HashMap<String, Double>();
 		Integer total = 0;
-		pValoresProp.put("total", total.doubleValue());
+		pValoresProp.put(TOTAL, total.doubleValue());
 
 		Integer indc = 0;
 		Map<String, Double> nomeProp = new HashMap<String, Double>();
@@ -260,7 +260,7 @@ public class Entropia {
 					if (count > 1) {
 						pValoresProp = new HashMap<String, Double>();
 						total = 0;
-						pValoresProp.put("total", total.doubleValue());
+						pValoresProp.put(TOTAL, total.doubleValue());
 						nomeProp = new HashMap<String, Double>();
 						indc++;
 					}
@@ -278,7 +278,7 @@ public class Entropia {
 				}
 
 				total++;
-				pValoresProp.put("total", total.doubleValue());
+				pValoresProp.put(TOTAL, total.doubleValue());
 			}
 		}
 
@@ -294,14 +294,14 @@ public class Entropia {
 		Double total = 0D;
 
 		for (Map<String, Double> map : todasFreq) {
-			if (map.containsKey("total")) {
-				total = total + map.get("total");
+			if (map.containsKey(TOTAL)) {
+				total = total + map.get(TOTAL);
 			} else {
 				throw new UnsupportedOperationException("Um dos maps não tem total");
 			}
 		}
 
-		if (total.doubleValue() == dadosCE.get("Tamanho da Tabela")) {
+		if (total.doubleValue() == dadosCE.get(TAMANHO_DA_TABELA)) {
 			return true;
 		} else {
 			throw new UnsupportedOperationException("Total não é igual ao tabela");
@@ -316,12 +316,12 @@ public class Entropia {
 			Double total = 0D;
 			Double freq = 0D;
 
-			if (map.containsKey("total")) {
-				total = map.get("total");
-				freq = total / dadosCE.get("Tamanho da Tabela");
+			if (map.containsKey(TOTAL)) {
+				total = map.get(TOTAL);
+				freq = total / dadosCE.get(TAMANHO_DA_TABELA);
 			}
 
-			map.put("freqDoTotal", freq);
+			map.put(FREQ_DO_TOTAL, freq);
 		}
 	}
 
@@ -345,17 +345,17 @@ public class Entropia {
 			index++;
 
 			Map<String, Double> freqs = new HashMap<String, Double>();
-			Double totalProp = map.get("total");
+			Double totalProp = map.get(TOTAL);
 			Double freq = 0D;
 			for (String string : map.keySet()) {
-				if (!string.equals("total") && !string.equals("freqDoTotal")) {
+				if (!string.equals(TOTAL) && !string.equals(FREQ_DO_TOTAL)) {
 					freq = map.get(string) / totalProp;
 					freqs.put(prop + "|" + string, freq);
 				}
 			}
 
-			freqs.put("total", map.get("total"));
-			freqs.put("freqDoTotal", map.get("freqDoTotal"));
+			freqs.put(TOTAL, map.get(TOTAL));
+			freqs.put(FREQ_DO_TOTAL, map.get(FREQ_DO_TOTAL));
 
 			todasFreqs.add(freqs);
 		}
@@ -375,18 +375,18 @@ public class Entropia {
 			String prop = "";
 
 			for (String k : keySet) {
-				if (!k.equals("total") && !k.equals("freqDoTotal")) {
+				if (!k.equals(TOTAL) && !k.equals(FREQ_DO_TOTAL)) {
 					String[] propArr = k.split("\\|");
 					prop = propArr[0];
 					Double soma = entropiaEsoma(map);
 					entropias.put(prop, soma);
 				}
 
-				if (entraDepois || k.equals("freqDoTotal")) {
+				if (entraDepois || k.equals(FREQ_DO_TOTAL)) {
 					if (prop.isBlank()) {
 						entraDepois = true;
 					} else {
-						entropias.put("freqDoTotal" + prop, map.get("freqDoTotal"));
+						entropias.put(FREQ_DO_TOTAL + prop, map.get(FREQ_DO_TOTAL));
 						entraDepois = false;
 					}
 				}
@@ -400,8 +400,8 @@ public class Entropia {
 	private List<Double> valoresPropsPonderado(Map<String, Double> entropiaValoresProps) {
 		List<Double> ponderados = new ArrayList<Double>();
 		for (String string : entropiaValoresProps.keySet()) {
-			if (!string.contains("freqDoTotal")) {
-				ponderados.add(entropiaValoresProps.get(string) * entropiaValoresProps.get("freqDoTotal" + string));
+			if (!string.contains(FREQ_DO_TOTAL)) {
+				ponderados.add(entropiaValoresProps.get(string) * entropiaValoresProps.get(FREQ_DO_TOTAL + string));
 			}
 		}
 		return ponderados;
@@ -418,7 +418,7 @@ public class Entropia {
 	}
 
 	private Double ganhoDeInformacao(Double somaPonderado) {
-		return dadosCE.get("Entropia da Tabela") - somaPonderado;
+		return dadosCE.get(ENTROPIA_DA_TABELA) - somaPonderado;
 	}
 
 //	public String selecionaPropriedade() {
