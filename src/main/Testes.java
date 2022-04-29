@@ -10,7 +10,7 @@ import objetos.ListasPadrao;
 import objetos.NohOuRamo;
 import objetos.Request;
 import objetos.Response;
-import processo.Entropia;
+import processo.Selecao;
 import processo.Processo;
 
 public class Testes {
@@ -22,7 +22,7 @@ public class Testes {
 		l.setClassePadrao();
 		l.setListaDadosPadrao();
 		l.setPropsPadrao();
-		Entropia e = new Entropia(l.getProps(), l.getListaDados());
+		Selecao e = new Selecao(l.getProps(), l.getListaDados());
 		e.main();
 	}
 	
@@ -38,7 +38,7 @@ public class Testes {
 
 	public void teste1() {
 		System.out.println("Deve receber uma lista com todos os elementos da mesma classe (todos risco alto) e "
-				+ "\n retornar nÃ³ com valor preenchido com alto, por exemplo");
+				+ "\n retornar nó com valor preenchido com alto, por exemplo");
 		System.out.println("Vamos Testar o Induzir Arvore.");
 		NohOuRamo a = p.induzirArvore();
 		System.out.println(a.getFilhos());

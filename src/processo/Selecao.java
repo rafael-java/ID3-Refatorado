@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 @SuppressWarnings("unused")
-public class Entropia {
+public class Selecao {
 
 	private List<Map<Integer, String>> listaDados;
 	private Map<Integer, String> propsInvertida;
@@ -22,7 +22,7 @@ public class Entropia {
 	private final static String TOTAL = "Total";
 	private final static String FREQ_DO_TOTAL = "FreqDoTotal";
 
-	public Entropia(Map<String, Integer> propsNaoInvertida, List<Map<Integer, String>> listaDados) {
+	public Selecao(Map<String, Integer> propsNaoInvertida, List<Map<Integer, String>> listaDados) {
 		this.listaDados = listaDados;
 		this.propsInvertida = inverterProps(propsNaoInvertida);
 		this.dadosCE = dadosCE();

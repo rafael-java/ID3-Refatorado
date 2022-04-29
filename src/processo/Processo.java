@@ -159,7 +159,7 @@ public class Processo {
 	}
 
 	private String selecionaUmaPropriedadeP(Map<String, Integer> props, List<Map<Integer, String>> listaDados) {
-		Entropia e = new Entropia(props, listaDados);
+		Selecao e = new Selecao(props, listaDados);
 		
 		String prop = e.elegeOMaior();
 	
